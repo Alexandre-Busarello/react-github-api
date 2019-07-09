@@ -44,6 +44,26 @@ export const Owner = styled.header`
   }
 `;
 
+export const FilterIssue = styled.div`
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+`;
+
 export const IssueList = styled.ul`
   /* Hack para a borda ficar com 30px de distancia do elemento acima e 30pc do conteudo */
   padding-top: 30px;

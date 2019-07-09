@@ -10,10 +10,11 @@ export const Form = styled.form`
   /* Faz com que o input ocupe todo o espaço possível da flexbox */
   input {
     flex: 1;
-    border: 1px solid #eee;
+    border: 1px solid ${props => (props.error ? 'red' : '#eee')};
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
+    color: ${props => props.error && 'red'};
   }
 `;
 
