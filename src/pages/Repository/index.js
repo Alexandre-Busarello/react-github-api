@@ -18,8 +18,12 @@ export default class Repository extends Component {
   };
 
   state = {
-    issueFilters: ['open', 'closed', 'all'],
-    filter: 'open',
+    issueFilters: [
+      { value: 'open', label: 'Abertos' },
+      { value: 'closed', label: 'Fechados' },
+      { value: 'all', label: 'Todos' },
+    ],
+    filteredValue: 'open',
     page: 1,
     repository: {},
     issues: [],
@@ -45,7 +49,7 @@ export default class Repository extends Component {
 
   handleFilter = async e => {
     this.setState({
-      filter: e.target.value,
+      filteredValue: e.target.value,
     });
     this.loadIssues();
   };
@@ -66,7 +70,7 @@ export default class Repository extends Component {
   };
 
   loadIssues = async () => {
-    const { page, filter } = this.state;
+    const { page, filteredValue } = this.state;
     const { match } = this.props;
     const repoName = decodeURIComponent(match.params.repository);
 
@@ -77,7 +81,7 @@ export default class Repository extends Component {
     const filteredIssues = await this.getIssuesPromisse(
       repoName,
       5,
-      filter,
+      filteredValue,
       page
     );
 
@@ -103,7 +107,7 @@ export default class Repository extends Component {
       issues,
       loading,
       issueFilters,
-      filter,
+      filteredValue,
       page,
     } = this.state;
 
@@ -121,15 +125,15 @@ export default class Repository extends Component {
         </Owner>
 
         <FilterIssue>
-          {issueFilters.map(filterName => (
-            <div key={filterName}>
+          {issueFilters.map(filter => (
+            <div key={filter.value}>
               <input
                 type="checkbox"
-                value={filterName}
-                checked={filterName === filter}
+                value={filter.value}
+                checked={filter.value === filteredValue}
                 onChange={this.handleFilter}
               />
-              <span>{filterName}</span>
+              <span>{filter.label}</span>
             </div>
           ))}
         </FilterIssue>
